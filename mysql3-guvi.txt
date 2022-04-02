@@ -1,0 +1,192 @@
+EXPORT of Database in MySQL
+----------------------------------------------------
+
+mysqldump -u root -p suman > chola_bhatura.sql
+
+
+IMPORT MySQL databases
+----------------------------------------------------
+
+mysql -u root -p < india.sql
+
+AUTO_INCREMENT
+--------------
+CREATE TABLE guvi(id int not null auto_increment, name varchar(20), email_id varchar(30), Primary Key(id));
+
+UNIQUE
+------
+CREATE TABLE food(id int not null auto_increment, name varchar(20), email_id varchar(30) unique, Primary Key(id));
+
+ADD COLUMN to your Existing Table
+---------------------------------
+ALTER TABLE guvi ADD location varchar(20);
+
+DELETE COLUMN to your Existing Table
+------------------------------------
+ALTER TABLE guvi DROP COLUMN location;
+
+CHANGE the Datatype of a COLUMN
+-------------------------------
+ALTER TABLE guvi MODIFY COLUMN location int unique;
+
+DISPLAY INDEX
+-------------
+SHOW INDEX FROM suman.guvi;
+
+CREATE INDEX
+------------
+CREATE INDEX suman1 ON TABLE(id);
+CREATE INDEX suman2 ON guvi(id, location);
+
+DISTINCT
+--------
+SELECT DISTINCT country FROM customers;
+
+
+UNION
+-----
+
+SELECT officecode from employees UNION SELECT officecode FROM offices;
+
+Crietaria 
+    1.) search pattern should be same
+    2.) fetched pattern should be same 
+
+
+PRIMARY Key
+----------
+1.) it should be unique
+2.) not null
+3.) one primary key for a table 
+
+CREATE TABLE state(id int not null, name varchar(20), location varchar(20), Primary Key(id));
+
+FOREIGN Key
+-----------
+CREATE TABLE ord(id int not null, number int, user_id int, Primary Key(id), Foreign Key(id) References state(id));
+
+1.) It creates a bridge between two tables
+2.) It refers to the primary key of the other table 
+
+
+JOINS
+------
+
+TO get data from two or more tables
+
+their are 4 type of JOINS:-
+1.) Inner Join 
+2.) Left Join 
+3.) Right Join 
+4.) Cross Join 
+
+INNER JOINS
+-----------
+SELECT orders.ordernumber, orders.status, orderdetails.priceeach FROM orders INNER JOIN orderdetails on orders.ordernumber=orderdetails.ordernumber;
+
+
+LEFT JOIN 
+---------
+
+
+MySQL Query optimization
+------------------------
+
+1.) Use index on those columns where you use ORDER BY, GROUP BY statements.
+
+2.) Use Like statement with Union clause
+
+3.) Try to avaoid using wildcards % sum.*
+
+4.) Use the power of MySQL for full text searches
+
+5.) Use optimal data types 
+
+6.) Avoid NULL in tables
+
+7.) try to use less Regex 
+
+8.) Avoid too many columns 
+
+9.) Optimize the Joins - Try to use fewer tables for joining 
+
+10.) Use the mySQL query caching - Consult your Database administrator 
+
+11.) Distribute your CRUD operations across MySQL databases like one server handles INSERT and other
+     handles READ/SELECT - Consult your Database administrator
+
+12.) Use the concept of Master / Slave MySQL databases - - Consult your Database administrator
+
+START/STOP MYSQL SERVER ON LINUX/UNIX
+-------------------------------------
+
+sudo service mysqld start
+
+sudo service mysqld stop
+
+sudo /etc/init.d/mysql start
+
+sudo /etc/init.d/mysql stop
+
+sudo /etc/init.d/mysql restart
+
+START/STOP MYSQL SERVER ON WINDOWS OS 
+-------------------------------------
+mysqld
+
+
+DISPLAY USERS
+--------------
+
+select user, host from mysql.user;
+
+CREATE NEW MySQL user
+---------------------
+
+CREATE USER IF NOT EXISTS suman IDENTIFIED BY 'top@secret';
+
+CREATE USER IF NOT EXISTS suman@127.0.0.1 IDENTIFIED BY 'top@secret';
+
+CREATE USER IF NOT EXISTS suman@localhost IDENTIFIED BY 'top@secret';
+
+DELETE MySQL user
+-----------------
+
+DROP USER suman;
+
+DROP USER suman@127.0.0.1;
+
+DROP USER suman@localhost;
+
+GRANT ACCESS TO YOUR databases FOR A NEW USER
+---------------------------------------------
+
+GRANT ALL PRIVILEGES ON guvi.* TO suman;
+
+Note # This command says give all access to all tables of DB guvi to the new user suman
+
+GRANT SELECT ON guvi.* TO suman;
+
+Note # It will give only the SELECT to work on the guvi DB for user suman 
+
+LOCK ACCOUNT OF NEWLY CREATED MYSQL USER
+----------------------------------------
+
+create user suman identified by 'suman' account lock;
+
+
+UNLOCK ACCOUNT OF NEWLY CREATED MYSQL USER
+----------------------------------------
+ALTER USER suman ACCOUNT UNLOCK;
+
+ALTER USER IF EXISTS suman ACCOUNT UNLOCK;
+
+
+SHOW USER PRIVILEGES FOR A MYSQL USER
+-------------------------------------
+SHOW GRANTS;
+
+SHOW GRANTS FOR suman;
+
+
+
